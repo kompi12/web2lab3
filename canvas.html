@@ -2,11 +2,10 @@
 <html>
 
 <head>
-    <title>Vrlo jednostavna HTML5 igra</title>
+    
     <style>
         canvas {
             border: 1px solid #000000;
-            background-color: #f1f1f1;
         }
     </style>
     <script>
@@ -22,17 +21,13 @@
         let promaseni = 0;
         let koliko = 0;
         function startGame() {
-         
-            for(var i = 0; i < Math.floor(Math.random() * 10) + 2 + 10 ; i++) {
-                komadi[i] = new component(30, 30, boje[i%10],Math.floor(Math.random() * width) + min , Math.floor(Math.random() * max) + min);     
+
+            for (var i = 0; i < Math.floor(Math.random() * 10) + 2 + 10; i++) {
+                komadi[i] = new component(30, 30, boje[i % 10], Math.floor(Math.random() * width) + min, Math.floor(Math.random() * height) + min);
             }
             koliko = komadi.length;
-            //myGamePiece = new component(30, 30, "red", 150, 150);
             myGameArea.start();
-            // addEventListener('click',function(event)
-            // {
-            //     console.log("stinsuli smo")
-            // });
+       
         }
         var myGameArea = {
             canvas: document.createElement("canvas"),
@@ -44,15 +39,13 @@
                 document.body.insertBefore(this.canvas, document.body.childNodes[0]);
                 this.frameNo = 0;
                 this.interval = setInterval(updateGameArea, 20);
-
-
                 this.canvas.onclick = (event) => {
                     for (var i = 0; i < komadi.length; i++) {
                         if (Math.pow((event.x - komadi[i].x), 2)
                             + Math.pow((event.y - komadi[i].y), 2)
                             <= Math.pow(komadi[i].width + threshold, 2)) {
-                                komadi.splice(i, 1);
-                                pogodeni++;
+                            komadi.splice(i, 1);
+                            pogodeni++;
                             return;
                         }
                     }
@@ -71,8 +64,8 @@
             this.type = type;
             this.width = width;
             this.height = height;
-            this.speed_x = (Math.floor(Math.random() * max) + min ) * 2 -max;
-            this.speed_y = (Math.floor(Math.random() * max) + min ) * 2 -max;;
+            this.speed_x = (Math.floor(Math.random() * max) + min) * 2 - max;
+            this.speed_y = (Math.floor(Math.random() * max) + min) * 2 - max;;
             this.x = x;
             this.y = y;
             this.update = function () {
@@ -100,10 +93,10 @@
             myGameArea.clear();
             var text = "Imamo:  " + koliko;
             myGameArea.context.fillText(text, width - myGameArea.context.measureText(text).width - 50, 50);
-            text = "Pogođeni: " + pogodeni;
-            myGameArea.context.fillText(text, width - myGameArea.context.measureText(text).width - 50, 80);
             text = "Fulani: " + promaseni;
             myGameArea.context.fillText(text, width - myGameArea.context.measureText(text).width - 50, 110);
+            text = "Pogođeni: " + pogodeni;
+            myGameArea.context.fillText(text, width - myGameArea.context.measureText(text).width - 50, 80);
 
             for (var i = 0; i < komadi.length; i++) {
                 komadi[i].newPos();
